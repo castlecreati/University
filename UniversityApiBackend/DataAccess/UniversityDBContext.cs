@@ -16,5 +16,13 @@ namespace UniversityApiBackend.DataAccess
 		public DbSet<Categoria>? Categorias { get; set; }
 		public DbSet<Estudiante>? Estudiantes { get; set; }
 		public DbSet<Chapter>? Chapters { get; set; }
+
+		//protected override void OnModelCreating(ModelBuilder modelBuilder)
+		//{
+		//	modelBuilder.Entity<BaseEntity>()
+		//		.HasOne(b => b.User)
+		//		.WithOne(i => i.BaseEntity)
+		//		.HasForeignKey<User>(b => b.BaseEntityForeignKey);
+		//}
 	}
 }
