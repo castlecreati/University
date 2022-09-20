@@ -11,6 +11,9 @@ namespace UniversityApiBackend.Models.DataModels
 		[Required]
 		public DateTime DOB { get; set; }
 		public ICollection<Curso> Cursos { get; set; } = new List<Curso>();
+
+		public int UserId { get; set; }
+		public virtual User User { get; set; } = new User();
 		
 	}
 }

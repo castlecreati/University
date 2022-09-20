@@ -18,7 +18,7 @@ namespace UniversityApiBackend.Models.DataModels
 		public string Password { get; set; } = string.Empty;
 
 		//public int BaseEntityForeignKey { get; set; }
-		//public virtual BaseEntity BaseEntity { get; set; } = new BaseEntity();
+		public Estudiante Estudiante { get; set; } = new Estudiante();
 
 	}
 }
