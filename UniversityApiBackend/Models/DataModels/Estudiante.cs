@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UniversityApiBackend.Models.DataModels
 {
@@ -11,9 +12,10 @@ namespace UniversityApiBackend.Models.DataModels
 		[Required]
 		public DateTime DOB { get; set; }
 		public ICollection<Curso> Cursos { get; set; } = new List<Curso>();
-
-		public int UserId { get; set; }
-		public virtual User User { get; set; } = new User();
+		[Required]
+		public int FKUserId { get; set; }
+		[JsonIgnore]
+		public virtual User? User { get; set; }
 		
 	}
 }

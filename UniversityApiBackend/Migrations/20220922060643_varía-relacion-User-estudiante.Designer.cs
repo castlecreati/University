@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityApiBackend.DataAccess;
 
@@ -11,9 +12,10 @@ using UniversityApiBackend.DataAccess;
 namespace UniversityApiBackend.Migrations
 {
     [DbContext(typeof(UniversityDBContext))]
-    partial class UniversityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220922060643_varía-relacion-User-estudiante")]
+    partial class varíarelacionUserestudiante
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasIndex("CursosId");
 
-                    b.ToTable("CategoriaCurso", (string)null);
+                    b.ToTable("CategoriaCurso");
                 });
 
             modelBuilder.Entity("CursoEstudiante", b =>
@@ -49,7 +51,7 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasIndex("EstudiantesId");
 
-                    b.ToTable("CursoEstudiante", (string)null);
+                    b.ToTable("CursoEstudiante");
                 });
 
             modelBuilder.Entity("UniversityApiBackend.Models.DataModels.Categoria", b =>
@@ -93,7 +95,7 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("UniversityApiBackend.Models.DataModels.Chapter", b =>
@@ -143,7 +145,7 @@ namespace UniversityApiBackend.Migrations
                     b.HasIndex("CursoId")
                         .IsUnique();
 
-                    b.ToTable("Chapters", (string)null);
+                    b.ToTable("Chapters");
                 });
 
             modelBuilder.Entity("UniversityApiBackend.Models.DataModels.Curso", b =>
@@ -209,7 +211,7 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cursos", (string)null);
+                    b.ToTable("Cursos");
                 });
 
             modelBuilder.Entity("UniversityApiBackend.Models.DataModels.Estudiante", b =>
@@ -237,9 +239,6 @@ namespace UniversityApiBackend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FKUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -263,10 +262,10 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FKUserId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Estudiantes", (string)null);
+                    b.ToTable("Estudiantes");
                 });
 
             modelBuilder.Entity("UniversityApiBackend.Models.DataModels.User", b =>
@@ -324,7 +323,7 @@ namespace UniversityApiBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CategoriaCurso", b =>
@@ -372,7 +371,7 @@ namespace UniversityApiBackend.Migrations
                 {
                     b.HasOne("UniversityApiBackend.Models.DataModels.User", "User")
                         .WithOne("Estudiante")
-                        .HasForeignKey("UniversityApiBackend.Models.DataModels.Estudiante", "FKUserId")
+                        .HasForeignKey("UniversityApiBackend.Models.DataModels.Estudiante", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

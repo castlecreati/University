@@ -18,7 +18,7 @@ namespace UniversityApiBackend.Models.DataModels
 		[Required]
 		public ICollection<Categoria> Categorias { get; set; } = new List<Categoria>();
 		public ICollection<Estudiante> Estudiantes { get; set; } = new List<Estudiante>();
-		public Chapter Chapter { get; set; } = new Chapter();
+		public Chapter Chapter { get; set; }
 
 	}
 

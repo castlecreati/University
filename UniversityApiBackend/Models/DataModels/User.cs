@@ -4,6 +4,10 @@ namespace UniversityApiBackend.Models.DataModels
 {
 	public class User: BaseEntity
 	{
+		//public User()
+		//{
+		//	Estudiante = new Estudiante();
+		//}
 		[Required]
 		[StringLength(100)]
 		public string Name { get; set; } =string.Empty;
@@ -17,8 +21,6 @@ namespace UniversityApiBackend.Models.DataModels
 		[Required]
 		public string Password { get; set; } = string.Empty;
 
-		//public int BaseEntityForeignKey { get; set; }
-		public Estudiante Estudiante { get; set; } = new Estudiante();
-
+		public Estudiante? Estudiante { get; set; }
 	}
 }
