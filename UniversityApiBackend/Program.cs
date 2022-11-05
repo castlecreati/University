@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using UniversityApiBackend.DataAccess;
+using UniversityApiBackend.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 const string CONNECTIONNAME = "UniversityDB";
 var connectionString = builder.Configuration.GetConnectionString(CONNECTIONNAME);
 
-// Añadir contexto
+// Añadir contexto --- Añadido logger para inspección de las sentencias TSQL en terminal
 builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServer(connectionString)
 .LogTo(Console.WriteLine,
 					new[] { DbLoggerCategory.Database.Command.Name },
 					LogLevel.Information));
+// Añadimos al contenedor el servicio de querys
+builder.Services.AddScoped<IQueryServices, Services>();
+
 // Add services to the container.
 
 builder.Services.AddControllers()

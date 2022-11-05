@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Models.DataModels;
+using UniversityApiBackend.Servicios;
 
 namespace UniversityApiBackend.Controllers
 {
@@ -15,25 +16,40 @@ namespace UniversityApiBackend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+		private readonly IQueryServices _queryServices;
 
-        public UsersController(UniversityDBContext context)
+		public UsersController(UniversityDBContext context, IQueryServices queryServices)
         {
             _context = context;
+            _queryServices = queryServices;
         }
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            return await _context.Users.ToListAsync();
-        }
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
+			if (_context.Users == null)
+			{
+				return NotFound();
+			}
+			return await _context.Users.ToListAsync();
+		}
+        // GET: api/Users/buscar/layla@example.com
+        [HttpGet]
+		[Route("buscar/{mail}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsersByEmail(string mail)
+        {
+            var usuarios = await _queryServices.UsuariosPorEmail(mail);
+
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+            return usuarios;
+        }
+            // GET: api/Users/5
+            [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
           if (_context.Users == null)

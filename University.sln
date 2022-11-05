@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityApiBackend", "UniversityApiBackend\UniversityApiBackend.csproj", "{6FEECD12-DE3F-41A3-B18F-9EAC8CF3279B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinQSnippets", "LinQSnippets\LinQSnippets.csproj", "{1AF7750A-94CA-479D-88DB-B5760888D767}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinQSnippets", "LinQSnippets\LinQSnippets.csproj", "{1AF7750A-94CA-479D-88DB-B5760888D767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
