@@ -8,5 +8,6 @@ namespace UniversityApiBackend.Servicios
 		//Obtener los usuarios según email
 		public Task<ActionResult<IEnumerable<User>>> UsuariosPorEmail(string mail);
 		public Task<ActionResult<IEnumerable<Estudiante>>> EstudiantesMayoresEdad();
+		public Task<ActionResult<IEnumerable<Estudiante>>> AlumnosUnCursoOMas();
 	}
 }

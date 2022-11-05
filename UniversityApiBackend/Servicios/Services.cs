@@ -36,5 +36,13 @@ namespace UniversityApiBackend.Servicios
 				.ToListAsync();
 			return estudiantesAdultos;
 		}
+
+		public async Task<ActionResult<IEnumerable<Estudiante>>> AlumnosUnCursoOMas()
+		{
+			var alumnosUnCursoOMAs = await _context.Estudiantes
+				.Where(e => e.Cursos.Count >= 1)
+				.ToListAsync();
+			return alumnosUnCursoOMAs;
+		}
 	}
 }

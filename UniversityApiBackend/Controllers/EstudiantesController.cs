@@ -39,6 +39,14 @@ namespace UniversityApiBackend.Controllers
             var estudiantesAdultos = await _queryServices.EstudiantesMayoresEdad();
             return estudiantesAdultos;
 		}
+        // GET: api/Estudiantes/uncursoomas
+        [HttpGet]
+        [Route("uncursoomas")]
+        public async Task<ActionResult<IEnumerable<Estudiante>>> GetEstudiantesUnCursoOMas()
+        {
+            var unCursoOmas = await _queryServices.AlumnosUnCursoOMas();
+            return unCursoOmas;
+        }
 
         // GET: api/Estudiantes/5
         [HttpGet("{id}")]
