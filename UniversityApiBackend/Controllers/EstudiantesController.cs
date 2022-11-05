@@ -16,10 +16,12 @@ namespace UniversityApiBackend.Controllers
     public class EstudiantesController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+		private readonly IQueryServices _queryServices;
 
-        public EstudiantesController(UniversityDBContext context)
+		public EstudiantesController(UniversityDBContext context, IQueryServices queryServices)
         {
             _context = context;
+            _queryServices = queryServices;
         }
 
         // GET: api/Estudiantes
@@ -28,6 +30,15 @@ namespace UniversityApiBackend.Controllers
         {
             return await _context.Estudiantes.ToListAsync();
         }
+
+		// GET: api/Estudiantes/adultos
+		[HttpGet]
+		[Route("adultos")]
+        public async Task<ActionResult<IEnumerable<Estudiante>>> GetAdultEstudiantes()
+		{
+            var estudiantesAdultos = await _queryServices.EstudiantesMayoresEdad();
+            return estudiantesAdultos;
+		}
 
         // GET: api/Estudiantes/5
         [HttpGet("{id}")]

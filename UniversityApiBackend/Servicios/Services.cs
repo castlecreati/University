@@ -27,5 +27,14 @@ namespace UniversityApiBackend.Servicios
 			return usuariosPorEmail;
 
 		}
+
+		public async Task<ActionResult<IEnumerable<Estudiante>>> EstudiantesMayoresEdad()
+		{
+			var anoActual = DateTime.Today.Year;
+			var estudiantesAdultos = await _context.Estudiantes
+				.Where(e => anoActual - e.DOB.Year > 18)
+				.ToListAsync();
+			return estudiantesAdultos;
+		}
 	}
 }
