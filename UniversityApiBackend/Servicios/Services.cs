@@ -44,5 +44,22 @@ namespace UniversityApiBackend.Servicios
 				.ToListAsync();
 			return alumnosUnCursoOMAs;
 		}
+
+		public Task<ActionResult<IEnumerable<Curso>>> CursoNivel0MinimoUnAlumno()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<ActionResult<IEnumerable<Curso>>> CursoNivel0CategoriaCalculo()
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<ActionResult<IEnumerable<Curso>>> CursosSinAlumnos()
+		{
+			var cursosSinAlumnos = await _context.Cursos
+				.Where(c => c.Estudiantes.Count == 0).ToListAsync();
+			return cursosSinAlumnos;
+		}
 	}
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Models.DataModels;
+using UniversityApiBackend.Servicios;
 
 namespace UniversityApiBackend.Controllers
 {
@@ -15,10 +16,12 @@ namespace UniversityApiBackend.Controllers
     public class CursosController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+		private readonly IQueryServices _queryServices;
 
-        public CursosController(UniversityDBContext context)
+		public CursosController(UniversityDBContext context, IQueryServices queryServices)
         {
             _context = context;
+            _queryServices = queryServices;
         }
 
         // GET: api/Cursos
@@ -27,6 +30,14 @@ namespace UniversityApiBackend.Controllers
         {
             return await _context.Cursos.ToListAsync();
         }
+        // GET: api/Cursos/sinalumnos
+        [HttpGet]
+		[Route("sinalumnos")]
+        public async Task<ActionResult<IEnumerable<Curso>>> GetCursosVacios()
+        {
+            return await _queryServices.CursosSinAlumnos();
+        }
+
 
         // GET: api/Cursos/5
         [HttpGet("{id}")]
