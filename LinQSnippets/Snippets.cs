@@ -530,7 +530,7 @@ namespace LinQSnippets
 			var commentsContent = posts.SelectMany(posts => posts.Comments
 										,(post, comment) => new {PostId = post.Id
 																,CommentId = comment.Id});
-
+				
 		}
 
 
@@ -541,4 +541,4 @@ namespace LinQSnippets
 
 
 	}
-}
+

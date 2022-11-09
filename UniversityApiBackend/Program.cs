@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using UniversityApiBackend.DataAccess;
+using UniversityApiBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,12 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 builder.Services.AddControllers()
 	.AddJsonOptions(opt =>
 				opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+//Custom Services
+builder.Services.AddScoped<ICursosService, CursosService>();
+builder.Services.AddScoped<IEstudiantesService, EstudiantesService>();
+builder.Services.AddScoped<IChaptersService, ChaptersService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
