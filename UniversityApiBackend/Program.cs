@@ -13,13 +13,17 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 .LogTo(Console.WriteLine,
 					new[] { DbLoggerCategory.Database.Command.Name },
 					LogLevel.Information));
-// Add services to the container.
+// Add services of JWT identification
+// TODO: builder.Services.AddJwtTokenServices(builder.Configuration);
 
+// Add services to the container.
 builder.Services.AddControllers()
 	.AddJsonOptions(opt =>
 				opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+//TODO: Config Swagger identification
 builder.Services.AddSwaggerGen();
 // CORS configuration
 builder.Services.AddCors(options =>
