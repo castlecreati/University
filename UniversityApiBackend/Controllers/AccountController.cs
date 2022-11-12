@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UniversityApiBackend.Helpers;
 using UniversityApiBackend.Models.DataModels;
 
@@ -68,6 +70,11 @@ namespace UniversityApiBackend.Controllers
 			}
 		}
 		[HttpGet]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+		public ActionResult GetUserList()
+		{
+			return Ok(Logins);
+		}
 		
 	}
 }

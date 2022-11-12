@@ -70,7 +70,7 @@ namespace UniversityApiBackend.Helpers
 				userToken.Token = new JwtSecurityTokenHandler().WriteToken(jwToken);
 				userToken.UserName = model.UserName;
 				userToken.Id = model.Id;
-				userToken.GuidId = model.Id;
+				userToken.GuidId = model.GuidId;
 
 				return userToken;
 			}
