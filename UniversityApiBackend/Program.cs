@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using UniversityApiBackend.DataAccess;
+using UniversityApiBackend;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,9 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 .LogTo(Console.WriteLine,
 					new[] { DbLoggerCategory.Database.Command.Name },
 					LogLevel.Information));
-// Add services of JWT identification
-// TODO: builder.Services.AddJwtTokenServices(builder.Configuration);
+// Add services of JWT identification - creamos previamente una clase como servicio de AddJwtTokenServices
+// TODO:
+builder.Services.AddJwtTokenServices(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllers()

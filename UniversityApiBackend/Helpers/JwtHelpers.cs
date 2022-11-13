@@ -77,8 +77,7 @@ namespace UniversityApiBackend.Helpers
 			catch (Exception exception)
 			{
 				throw new Exception("Error generando el jwt", exception);
-				throw;
-			}
+							}
 		}
 	}
 }

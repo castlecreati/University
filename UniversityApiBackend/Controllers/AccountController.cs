@@ -17,6 +17,7 @@ namespace UniversityApiBackend.Controllers
 			_jwtSettings = jwtSettings;
 		}
 
+		// TODO: Change by real users in DB
 		private List<User> Logins = new List<User>()
 		{
 			new User()
