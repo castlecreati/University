@@ -31,7 +31,7 @@ namespace UniversityApiBackend.Controllers
 			{
 				Id = 2,
 				Email = "pepe@imaginagroup.com",
-				Name = "User 1",
+				Name = "User1",
 				Password = "pepe"
 			}
 
