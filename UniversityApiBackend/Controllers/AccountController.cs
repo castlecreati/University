@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Helpers;
 using UniversityApiBackend.Models.DataModels;
 
@@ -10,14 +11,18 @@ namespace UniversityApiBackend.Controllers
 	[ApiController]
 	public class AccountController : Controller
 	{
-		private readonly JwtSettings _jwtSettings;
 
-		public AccountController(JwtSettings jwtSettings)
+
+		private readonly JwtSettings _jwtSettings;
+		private readonly UniversityDBContext _context;
+
+		public AccountController(JwtSettings jwtSettings, UniversityDBContext context)
 		{
 			_jwtSettings = jwtSettings;
+			_context = context;
 		}
 
-		// TODO: Change by real users in DB
+		// Changed by real users in DB
 		private List<User> Logins = new List<User>()
 		{
 			new User()
@@ -43,18 +48,25 @@ namespace UniversityApiBackend.Controllers
 			try
 			{
 				var Token = new UserTokens();
-				var Valid = Logins.Any(user => user.Name
-								.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
+
+
+				var searchUser = _context.Users
+					.FirstOrDefault(user => user.Name == userLogin.UserName);
+
+				var Valid = searchUser.Password.Equals(userLogin.PassWord) &&
+					searchUser.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase);
+
 				if (Valid)
 				{
-					var user = Logins
-						.FirstOrDefault(user => user.Name
-						.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
+					//var user = Logins
+					//	.FirstOrDefault(user => user.Name
+					//	.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
 					Token = JwtHelpers.GetTokenKey(new UserTokens()
 					{
-						UserName = user.Name,
-						EmailId = user.Email,
-						Id = user.Id,
+						UserName = searchUser.Name,
+						EmailId = searchUser.Email,
+						Id = searchUser.Id,
+						Role = ((int)searchUser.Role == 1) ? "Administrator" : "User",
 						GuidId = Guid.NewGuid()
 					}, _jwtSettings);
 				}
@@ -74,7 +86,7 @@ namespace UniversityApiBackend.Controllers
 		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
 		public ActionResult GetUserList()
 		{
-			return Ok(Logins);
+			return Ok(_context.Users);
 		}
 		
 	}

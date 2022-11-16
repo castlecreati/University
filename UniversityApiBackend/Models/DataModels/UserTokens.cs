@@ -9,6 +9,7 @@
 		public string RefreshToken { get; set; }
 		public string EmailId { get; set; }
 		public Guid GuidId { get; set; }
+		public string Role { get; set; }
 		public DateTime ExpiredTime { get; set; }
 	}
 }

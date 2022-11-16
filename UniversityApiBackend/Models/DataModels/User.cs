@@ -20,7 +20,16 @@ namespace UniversityApiBackend.Models.DataModels
 
 		[Required]
 		public string Password { get; set; } = string.Empty;
+		[Required]
+		public Role Role { get; set; } = Role.User;
 
 		public Estudiante? Estudiante { get; set; }
 	}
+
+	public enum Role
+	{
+		User,
+		Administrator
+	}
 }
+
