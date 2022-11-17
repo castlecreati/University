@@ -11,8 +11,6 @@ namespace UniversityApiBackend.Controllers
 	[ApiController]
 	public class AccountController : Controller
 	{
-
-
 		private readonly JwtSettings _jwtSettings;
 		private readonly UniversityDBContext _context;
 
@@ -54,7 +52,7 @@ namespace UniversityApiBackend.Controllers
 					.FirstOrDefault(user => user.Name == userLogin.UserName);
 
 				var Valid = searchUser.Password.Equals(userLogin.PassWord) &&
-					searchUser.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase);
+							searchUser != null;
 
 				if (Valid)
 				{
