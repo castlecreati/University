@@ -70,7 +70,7 @@ namespace UniversityApiBackend.Controllers
 				}
 				else
 				{
-					return BadRequest("Wrong Password");
+					return BadRequest("Wrong Password or null User");
 				}
 				return Ok(Token);
 			}
