@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Models.DataModels;
+using UniversityApiBackend.Services;
 
 namespace UniversityApiBackend.Controllers
 {
@@ -15,10 +16,12 @@ namespace UniversityApiBackend.Controllers
     public class CursosController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+		private readonly ICursosService _cursosService;
 
-        public CursosController(UniversityDBContext context)
+		public CursosController(UniversityDBContext context, ICursosService cursosService)
         {
             _context = context;
+            _cursosService = cursosService;
         }
 
         // GET: api/Cursos
@@ -27,6 +30,30 @@ namespace UniversityApiBackend.Controllers
         {
             return await _context.Cursos.ToListAsync();
         }
+
+		// GET: api/Cursos/cursosdemoncho
+		[HttpGet]
+		[Route("cursosdemoncho")]
+        public async Task<ActionResult<IEnumerable<Curso>>> GetCursosOfMoncho()
+		{
+            return await _cursosService.GetCoursesOfMoncho();
+		}
+
+		// GET: api/Cursos/cursoswhithoutchapters
+		[HttpGet]
+		[Route("cursoswhithoutchapters")]
+        public async Task<ActionResult<IEnumerable<Curso>>> GetAllCursosSinChapters()
+		{
+            return await _cursosService.GetAllCursosOfWhithoutChapters();
+		}
+
+		// GET: api/Cursos/dealgebra
+		[HttpGet]
+		[Route("dealgebra")]
+        public async Task<ActionResult<IEnumerable<Curso>>> GetCursosDeAlgebra()
+		{
+            return await _cursosService.GetCursosOfAlgebra();
+		}
 
         // GET: api/Cursos/5
         [HttpGet("{id}")]
