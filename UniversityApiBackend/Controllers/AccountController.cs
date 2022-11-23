@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Helpers;
 using UniversityApiBackend.Models.DataModels;
@@ -13,11 +14,15 @@ namespace UniversityApiBackend.Controllers
 	{
 		private readonly JwtSettings _jwtSettings;
 		private readonly UniversityDBContext _context;
+		private readonly IStringLocalizer<AccountController> _stringLocalizer;
 
-		public AccountController(JwtSettings jwtSettings, UniversityDBContext context)
+		public AccountController(JwtSettings jwtSettings, 
+								UniversityDBContext context, 
+								IStringLocalizer<AccountController> stringLocalizer)
 		{
 			_jwtSettings = jwtSettings;
 			_context = context;
+			_stringLocalizer = stringLocalizer;
 		}
 
 		// Changed by real users in DB
@@ -47,6 +52,8 @@ namespace UniversityApiBackend.Controllers
 			{
 				var Token = new UserTokens();
 
+				var badRequest = _stringLocalizer["BadRequest"];
+				var bienvenida = _stringLocalizer.GetString("Welcome").Value ?? String.Empty;
 
 				var searchUser = _context.Users
 					.FirstOrDefault(user => user.Name == userLogin.UserName);
@@ -70,14 +77,14 @@ namespace UniversityApiBackend.Controllers
 				}
 				else
 				{
-					return BadRequest("Wrong Password or null User");
+					return BadRequest(badRequest);
 				}
-				return Ok(Token);
+				return Ok(new {Bienvenida = bienvenida, Token});
 			}
 			catch (Exception ex)
 			{
 
-				throw new Exception("GetToken error", ex);
+				throw new Exception(_stringLocalizer["Exception"], ex);
 			}
 		}
 		[HttpGet]

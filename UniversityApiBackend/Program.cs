@@ -25,6 +25,10 @@ builder.Services.AddScoped<ICursosService, CursosService>();
 builder.Services.AddScoped<IEstudiantesService, EstudiantesService>();
 builder.Services.AddScoped<IChaptersService, ChaptersService>();
 // Add services to the container.
+
+// 10.- Add Localization
+builder.Services.AddLocalization(options => options.ResourcesPath ="Resources");
+
 builder.Services.AddControllers()
 	.AddJsonOptions(opt =>
 				opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -81,6 +85,16 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// 11.- Add Supported Cultures
+var suportedCultures = new[] { "en-US", "es-ES", "fr-FR", "de-DE" };
+var localizationOptions = new RequestLocalizationOptions()
+	.SetDefaultCulture(suportedCultures[0]) // Ingles por defecto
+	.AddSupportedCultures(suportedCultures)
+	.AddSupportedUICultures(suportedCultures); //Este ultimo se usaria en MVC para una vista
+
+// 12.- Add Localization to App
+app.UseRequestLocalization(localizationOptions); // y ahora creamos la carpeta donde ubicar el contenido
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
